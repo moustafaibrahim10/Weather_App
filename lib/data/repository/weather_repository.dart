@@ -1,3 +1,4 @@
+import 'package:weather_app/data/models/weather_model.dart';
 import 'package:weather_app/domain/entities/weather.dart';
 import 'package:weather_app/domain/repository/base_weather_repository.dart';
 
@@ -10,10 +11,13 @@ class WeatherRepository implements BaseWeatherRepository
   WeatherRepository(this.baseRemoteDataSource);
 
   @override
-  Future<Weather> getWeatherByCityName(String cityName)async {
+  Future<WeatherModel> getWeatherByCityName(String cityName)async {
     try{
       final weather= await baseRemoteDataSource.getWeatherByCityName(cityName);
-      return weather!;
+      if (weather == null) {
+        throw Exception('Failed to fetch weather data: No data returned');
+      }
+      return weather;
     }catch(error)
     {
       print("error in weather repo. : $error");

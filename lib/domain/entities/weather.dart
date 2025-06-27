@@ -2,7 +2,7 @@ class Weather{
   final int? id;
   final String? main;
   final String? description;
-  final String? pressure;
+  final int? pressure;
   final String? cityName;
 
 
